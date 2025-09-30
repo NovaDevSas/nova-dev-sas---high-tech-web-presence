@@ -240,20 +240,17 @@ User Interface (UI) Design, on the other hand, is the micro-level execution of t
         }
     },
     contact: {
-        title: 'Get In Touch',
-        description: "Have a project in mind or just want to say hello? We'd love to hear from you.",
-        location: "Based in Cajicá, Colombia",
-        form: {
-            name: 'Your Name',
-            email: 'Your Email',
-            message: 'Your Message',
-            send: 'Send Message',
-            sending: 'Sending...'
+        title: 'Ready to Innovate?',
+        subtitle: 'Let\'s Build the Future Together',
+        description: "Transform your ideas into powerful digital solutions. Connect with our team of experts and start your journey towards technological excellence.",
+        cta: {
+            button: 'Chat on WhatsApp',
+            subtext: 'Get instant response and personalized consultation'
         },
-        success: {
-            title: 'Message Sent!',
-            description: "Thank you for reaching out. We've received your message and will get back to you shortly.",
-            button: 'Send Another Message'
+        features: {
+            instant: 'Instant Response',
+            direct: 'Direct Communication',
+            available: '24/7 Available'
         },
         seo: {
             title: "Contact Nova Dev SAS | Let's Build Together",
@@ -512,20 +509,17 @@ Por otro lado, el Diseño de Interfaz de Usuario (UI) es la ejecución a nivel m
         }
     },
     contact: {
-        title: 'Ponte en Contacto',
-        description: '¿Tienes un proyecto en mente o solo quieres saludar? Nos encantaría saber de ti.',
-        location: "Ubicados en Cajicá, Colombia",
-        form: {
-            name: 'Tu Nombre',
-            email: 'Tu Correo Electrónico',
-            message: 'Tu Mensaje',
-            send: 'Enviar Mensaje',
-            sending: 'Enviando...'
+        title: '¿Listo para Innovar?',
+        subtitle: 'Construyamos el Futuro Juntos',
+        description: 'Transforma tus ideas en poderosas soluciones digitales. Conecta con nuestro equipo de expertos y comienza tu viaje hacia la excelencia tecnológica.',
+        cta: {
+            button: 'Chatear por WhatsApp',
+            subtext: 'Obtén respuesta instantánea y consultoría personalizada'
         },
-        success: {
-            title: '¡Mensaje Enviado!',
-            description: "Gracias por contactarnos. Hemos recibido tu mensaje y te responderemos en breve.",
-            button: 'Enviar Otro Mensaje'
+        features: {
+            instant: 'Respuesta Instantánea',
+            direct: 'Comunicación Directa',
+            available: 'Disponible 24/7'
         },
         seo: {
             title: "Contacta a Nova Dev SAS | Construyamos Juntos",
@@ -784,20 +778,17 @@ AIの最も重要な影響の1つは、自動コード生成とテストの分�
         }
     },
     contact: {
-        title: 'お問い合わせ',
-        description: 'プロジェクトを検討中ですか、それともただ挨拶したいだけですか？ぜひご連絡ください。',
-        location: "コロンビア、カヒカに拠点を置く",
-        form: {
-            name: 'お名前',
-            email: 'メールアドレス',
-            message: 'メッセージ',
-            send: 'メッセージを送信',
-            sending: '送信中...'
+        title: 'イノベーションの準備はできていますか？',
+        subtitle: '一緒に未来を築きましょう',
+        description: 'あなたのアイデアを強力なデジタルソリューションに変えましょう。専門家チームと繋がり、技術的卓越性への旅を始めましょう。',
+        cta: {
+            button: 'WhatsAppでチャット',
+            subtext: '即座の返答とパーソナライズされた相談を受けましょう'
         },
-        success: {
-            title: 'メッセージが送信されました！',
-            description: "お問い合わせいただきありがとうございます。メッセージを受け取りました。まもなく返信いたします。",
-            button: '別のメッセージを送信'
+        features: {
+            instant: '即座の返答',
+            direct: '直接コミュニケーション',
+            available: '24時間365日利用可能'
         },
         seo: {
             title: "Nova Dev SASへのお問い合わせ | 共に築きましょう",
@@ -1056,20 +1047,17 @@ AIの最も重要な影響の1つは、自動コード生成とテストの分�
         }
     },
     contact: {
-        title: 'Свяжитесь с нами',
-        description: 'Есть проект на уме или просто хотите поздороваться? Мы будем рады вас выслушать.',
-        location: "Находимся в Кахика, Колумбия",
-        form: {
-            name: 'Ваше имя',
-            email: 'Ваш Email',
-            message: 'Ваше сообщение',
-            send: 'Отправить сообщение',
-            sending: 'Отправка...'
+        title: 'Готовы к инновациям?',
+        subtitle: 'Давайте строить будущее вместе',
+        description: 'Превратите ваши идеи в мощные цифровые решения. Свяжитесь с нашей командой экспертов и начните путь к технологическому совершенству.',
+        cta: {
+            button: 'Чат в WhatsApp',
+            subtext: 'Получите мгновенный ответ и персонализированную консультацию'
         },
-        success: {
-            title: 'Сообщение отправлено!',
-            description: "Спасибо за обращение. Мы получили ваше сообщение и свяжемся с вами в ближайшее время.",
-            button: 'Отправить еще одно сообщение'
+        features: {
+            instant: 'Мгновенный ответ',
+            direct: 'Прямое общение',
+            available: 'Доступно 24/7'
         },
         seo: {
             title: "Связаться с Nova Dev SAS | Давайте Строить Вместе",

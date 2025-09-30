@@ -1,131 +1,155 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import AnimatedSection from './AnimatedSection';
-
-type FormStatus = 'idle' | 'submitting' | 'success';
 
 interface ContactProps {
     t: {
         title: string;
+        subtitle: string;
         description: string;
-        location: string;
-        form: {
-            name: string;
-            email: string;
-            message: string;
-            send: string;
-            sending: string;
-        };
-        success: {
-            title: string;
-            description: string;
+        cta: {
             button: string;
+            subtext: string;
+        };
+        features: {
+            instant: string;
+            direct: string;
+            available: string;
         }
     }
 }
 
 const Contact = React.forwardRef<HTMLElement, ContactProps>(({ t }, ref) => {
-  const [status, setStatus] = useState<FormStatus>('idle');
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setStatus('submitting');
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setStatus('success');
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "573108644580"; // Número de WhatsApp de Nova Dev SAS
+    const message = encodeURIComponent("¡Hola! Me interesa conocer más sobre los servicios de Nova Dev SAS. ¿Podríamos conversar?");
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const commonSectionProps = {
     id: "contact",
     ref: ref,
-    className: "py-20 md:py-32 bg-brand-dark text-brand-light relative overflow-hidden",
+    className: "py-20 md:py-32 bg-gradient-to-br from-brand-dark via-[#0a0a0a] to-brand-dark text-brand-light relative overflow-hidden",
   };
   
+  // Patrón de fondo tecnológico mejorado
   const backgroundPattern = (
-    <div 
-        className="absolute top-0 left-0 w-full h-full bg-repeat"
+    <div className="absolute inset-0">
+      {/* Grid pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
         style={{
-            backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"80\" height=\"80\" viewBox=\"0 0 80 80\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%238548ef\" fill-opacity=\"0.04\"%3E%3Cpath d=\"M50 50.5c0 .28.22.5.5.5h4a.5.5 0 00.5-.5v-4a.5.5 0 00-.5-.5h-4a.5.5 0 00-.5.5v4zM25 25.5c0 .28.22.5.5.5h4a.5.5 0 00.5-.5v-4a.5.5 0 00-.5-.5h-4a.5.5 0 00-.5.5v4z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+          backgroundImage: `
+            linear-gradient(rgba(133, 72, 239, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(133, 72, 239, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px'
         }}
-        aria-hidden="true"
-    ></div>
+      />
+      
+      {/* Floating geometric shapes */}
+      <div className="absolute top-20 left-10 w-32 h-32 border border-brand-accent/20 rotate-45 animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-24 h-24 border border-brand-accent/30 rotate-12 animate-pulse delay-1000"></div>
+      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-brand-accent/5 rotate-45 animate-pulse delay-500"></div>
+      
+      {/* Gradient overlays */}
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-brand-accent/5 via-transparent to-brand-accent/5"></div>
+    </div>
   );
-
-  if (status === 'success') {
-    return (
-      <section {...commonSectionProps}>
-        {backgroundPattern}
-        <div className="container mx-auto px-6 relative">
-          <AnimatedSection className="text-center">
-            <div className="max-w-2xl mx-auto bg-[#1e1e1e]/80 backdrop-blur-sm p-10 rounded-lg shadow-2xl border border-brand-light/10">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 mx-auto text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <h2 className="text-3xl md:text-4xl font-display font-bold mt-4">{t.success.title}</h2>
-                <p className="mt-4 text-lg text-brand-light/70">
-                    {t.success.description}
-                </p>
-                <button 
-                    onClick={() => setStatus('idle')}
-                    className="mt-8 font-display text-lg font-bold bg-brand-accent text-brand-dark px-8 py-4 rounded-sm uppercase tracking-widest hover:bg-brand-accent-dark hover:shadow-lg hover:shadow-brand-accent/30 transition-all duration-300 transform hover:-translate-y-1"
-                >
-                    {t.success.button}
-                </button>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section {...commonSectionProps}>
       {backgroundPattern}
-      <div className="container mx-auto px-6 relative">
-        <div className="text-center">
-            <AnimatedSection>
-            <h2 className="text-4xl md:text-5xl font-display font-bold">{t.title}</h2>
-            </AnimatedSection>
-            <AnimatedSection delay={200}>
-            <p className="mt-4 text-lg max-w-3xl mx-auto text-brand-light/70">
-                {t.description}
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Header */}
+          <AnimatedSection>
+            <h2 className="text-4xl md:text-6xl font-display font-bold bg-gradient-to-r from-brand-light via-brand-accent to-brand-light bg-clip-text text-transparent">
+              {t.title}
+            </h2>
+          </AnimatedSection>
+          
+          <AnimatedSection delay={200}>
+            <p className="text-xl md:text-2xl font-display font-medium text-brand-accent mt-4">
+              {t.subtitle}
             </p>
+          </AnimatedSection>
+          
+          <AnimatedSection delay={400}>
+            <p className="mt-6 text-lg max-w-2xl mx-auto text-brand-light/70 leading-relaxed">
+              {t.description}
+            </p>
+          </AnimatedSection>
+
+          {/* Features Grid */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <AnimatedSection delay={600}>
+              <div className="bg-[#1a1a1a]/60 backdrop-blur-sm p-6 rounded-lg border border-brand-accent/20 hover:border-brand-accent/40 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-brand-accent to-brand-accent-dark rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <p className="text-sm font-medium text-brand-light">{t.features.instant}</p>
+              </div>
             </AnimatedSection>
-        </div>
-        <div className="mt-16 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <AnimatedSection delay={400} className="h-64 lg:h-full rounded-lg overflow-hidden shadow-2xl">
-                 <img 
-                    src="https://source.unsplash.com/800x1000/?colombia,cajica,modern"
-                    alt="Cajicá, Colombia Office Location"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                 />
+
+            <AnimatedSection delay={700}>
+              <div className="bg-[#1a1a1a]/60 backdrop-blur-sm p-6 rounded-lg border border-brand-accent/20 hover:border-brand-accent/40 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-brand-accent to-brand-accent-dark rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <p className="text-sm font-medium text-brand-light">{t.features.direct}</p>
+              </div>
             </AnimatedSection>
-            <div className="bg-[#1e1e1e]/80 backdrop-blur-sm p-8 rounded-lg shadow-2xl border border-brand-light/10">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <AnimatedSection delay={500}>
-                        <label htmlFor="name" className="sr-only">{t.form.name}</label>
-                        <input required type="text" id="name" name="name" placeholder={t.form.name} className="w-full p-4 bg-brand-dark/80 border border-brand-light/20 text-brand-light rounded-md focus:ring-2 focus:ring-brand-accent focus:border-brand-accent transition-colors" disabled={status === 'submitting'} />
-                    </AnimatedSection>
-                    <AnimatedSection delay={600}>
-                        <label htmlFor="email" className="sr-only">{t.form.email}</label>
-                        <input required type="email" id="email" name="email" placeholder={t.form.email} className="w-full p-4 bg-brand-dark/80 border border-brand-light/20 text-brand-light rounded-md focus:ring-2 focus:ring-brand-accent focus:border-brand-accent transition-colors" disabled={status === 'submitting'} />
-                    </AnimatedSection>
-                    <AnimatedSection delay={700}>
-                        <label htmlFor="message" className="sr-only">{t.form.message}</label>
-                        <textarea required id="message" name="message" placeholder={t.form.message} rows={5} className="w-full p-4 bg-brand-dark/80 border border-brand-light/20 text-brand-light rounded-md focus:ring-2 focus:ring-brand-accent focus:border-brand-accent transition-colors" disabled={status === 'submitting'}></textarea>
-                    </AnimatedSection>
-                    <AnimatedSection className="text-center" delay={800}>
-                        <button type="submit" className="font-display text-lg font-bold bg-brand-accent text-brand-dark px-8 py-4 rounded-sm uppercase tracking-widest hover:bg-brand-accent-dark hover:shadow-lg hover:shadow-brand-accent/30 transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed" disabled={status === 'submitting'}>
-                            {status === 'submitting' ? t.form.sending : t.form.send}
-                        </button>
-                    </AnimatedSection>
-                </form>
+
+            <AnimatedSection delay={800}>
+              <div className="bg-[#1a1a1a]/60 backdrop-blur-sm p-6 rounded-lg border border-brand-accent/20 hover:border-brand-accent/40 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-brand-accent to-brand-accent-dark rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <p className="text-sm font-medium text-brand-light">{t.features.available}</p>
+              </div>
+            </AnimatedSection>
+          </div>
+
+          {/* Main CTA Button */}
+          <AnimatedSection delay={1000} className="mt-16">
+            <div className="relative inline-block">
+              {/* Glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-brand-accent via-brand-accent-dark to-brand-accent rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
+              
+              <button
+                onClick={handleWhatsAppClick}
+                className="relative group bg-gradient-to-r from-[#25D366] via-[#128C7E] to-[#25D366] text-white font-display font-bold text-xl px-12 py-6 rounded-lg uppercase tracking-wider transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-[#25D366]/30 flex items-center gap-4 mx-auto"
+              >
+                {/* WhatsApp Icon */}
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                </svg>
+                
+                <span>{t.cta.button}</span>
+                
+                {/* Arrow */}
+                <svg className="w-6 h-6 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
             </div>
+          </AnimatedSection>
+
+          {/* Subtext */}
+          <AnimatedSection delay={1200}>
+            <p className="mt-6 text-sm text-brand-light/60 max-w-md mx-auto">
+              {t.cta.subtext}
+            </p>
+          </AnimatedSection>
         </div>
-        <AnimatedSection delay={1000} className="text-center mt-12">
-            <p className="text-brand-light/60">{t.location}</p>
-        </AnimatedSection>
       </div>
     </section>
   );
