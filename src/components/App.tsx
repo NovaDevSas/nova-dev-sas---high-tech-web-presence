@@ -1,22 +1,22 @@
 
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
-import Header from './components/Header';
-import { translations, Language, Post as BlogPostType } from './translations';
-import FloatingWhatsApp from './components/FloatingWhatsApp';
-import About from './components/About';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Technologies from './components/Technologies';
-import Portfolio from './components/Portfolio';
-import CaseStudies from './components/CaseStudies';
-import Impact from './components/Impact';
-import Process from './components/Process';
-import Testimonials from './components/Testimonials';
-import Blog from './components/Blog';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import Header from './Header';
+import { translations, Language, Post as BlogPostType } from '../translations';
+import FloatingWhatsApp from './FloatingWhatsApp';
+import About from './About';
+import Hero from './Hero';
+import Services from './Services';
+import Technologies from './Technologies';
+import Portfolio from './Portfolio';
+import CaseStudies from './CaseStudies';
+import Impact from './Impact';
+import Process from './Process';
+import Testimonials from './Testimonials';
+import Blog from './Blog';
+import Contact from './Contact';
+import Footer from './Footer';
 
-const BlogModal = lazy(() => import('./components/BlogModal'));
+const BlogModal = lazy(() => import('./BlogModal'));
 
 
 // FIX: Defined MappedPost to correctly type the `selectedPost` state. The Blog component

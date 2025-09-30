@@ -173,11 +173,27 @@ const getCarouselSettings = (width: number) => {
 };
 
 const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, ref) => {
-    // State for responsive settings
-    const [settings, setSettings] = useState(getCarouselSettings(window.innerWidth));
+    // State for responsive settings - use default desktop settings for SSR
+    const [settings, setSettings] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return getCarouselSettings(window.innerWidth);
+        }
+        // Default to desktop settings for server-side rendering
+        return {
+            speed: 80,
+            logoHeight: 80,
+            gap: 80,
+        };
+    });
 
     // Update settings on window resize
     useEffect(() => {
+        // Only run on client side
+        if (typeof window === 'undefined') return;
+        
+        // Set initial settings based on current window size
+        setSettings(getCarouselSettings(window.innerWidth));
+        
         const handleResize = () => {
             setSettings(getCarouselSettings(window.innerWidth));
         };

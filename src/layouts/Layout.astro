@@ -1,0 +1,79 @@
+---
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Nova Dev SAS | Desarrollo de Software a la Medida en Colombia", description = "Nova Dev SAS es una agencia de desarrollo de software en Cajicá, Colombia, especializada en aplicaciones web, móviles y soluciones a la medida para impulsar la transformación digital de tu negocio." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="desarrollo de software, colombia, cajicá, aplicaciones web, aplicaciones móviles, ui/ux, nova dev sas, tecnología, software a la medida" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* Custom Scrollbar Styles */
+      /* For Webkit-based browsers (Chrome, Safari, new Edge) */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #1a1a1a;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #8548ef; /* brand-accent */
+        border-radius: 20px;
+        border: 2px solid #1a1a1a;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #7038d4; /* brand-accent-dark */
+      }
+
+      /* For Firefox */
+      html {
+        scrollbar-width: thin;
+        scrollbar-color: #8548ef #1a1a1a;
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Nova Dev SAS",
+      "url": "https://your-website-url.com",
+      "logo": "https://your-website-url.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+57-310-864-4580",
+        "contactType": "Customer Service"
+      },
+       "service": {
+        "@type": "Service",
+        "serviceType": "Software Development",
+        "provider": {
+          "@type": "Organization",
+          "name": "Nova Dev SAS"
+        }
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
