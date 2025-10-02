@@ -56,7 +56,14 @@ const BlogModal: React.FC<BlogModalProps> = ({ post, onClose }) => {
                 onClick={e => e.stopPropagation()} // Prevent closing when clicking inside modal
             >
                 <div className="relative">
-                    <img src={post.imageUrl} alt={post.title} className="w-full h-48 md:h-64 object-cover" />
+                    <img
+                      src={post.imageUrl}
+                      alt={post.title}
+                      className="w-full h-48 md:h-64 object-cover"
+                      decoding="async"
+                      width={1600}
+                      height={900}
+                    />
                     <button 
                         onClick={onClose} 
                         className="absolute top-4 right-4 bg-brand-dark/50 text-white rounded-full p-2 hover:bg-brand-dark transition-colors"

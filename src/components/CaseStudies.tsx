@@ -65,7 +65,15 @@ const CaseStudies = React.forwardRef<HTMLElement, CaseStudiesProps>(({ t }, ref)
                         <AnimatedSection key={index} delay={400 + index * 150}>
                             <div className="group bg-brand-dark/50 backdrop-blur-sm border border-brand-light/20 p-8 rounded-lg h-full flex flex-col transition-all duration-300 hover:border-brand-accent hover:shadow-2xl hover:shadow-brand-accent/10 transform hover:-translate-y-2">
                                 <div className="flex-shrink-0">
-                                    <img className="h-10 opacity-70 group-hover:opacity-100 transition-opacity" src={study.logoUrl} alt={`${study.client} logo`} loading="lazy" />
+                                    <img
+                                      className="h-10 opacity-70 group-hover:opacity-100 transition-opacity"
+                                      src={study.logoUrl}
+                                      alt={`${study.client} logo`}
+                                      loading="lazy"
+                                      decoding="async"
+                                      width={158}
+                                      height={48}
+                                    />
                                 </div>
                                 <div className="flex-grow mt-6">
                                     <h3 className="text-2xl font-display font-semibold text-brand-light">{study.title}</h3>

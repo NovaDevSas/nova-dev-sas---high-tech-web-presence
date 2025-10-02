@@ -61,8 +61,16 @@ const Blog = React.forwardRef<HTMLElement, BlogProps>(({ t, setSelectedPost }, r
             {blogPosts.map((post, index) => (
                 <AnimatedSection key={index} delay={400 + index * 150}>
                     <div className="group bg-brand-dark/50 backdrop-blur-sm border border-brand-light/20 rounded-lg shadow-lg overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-2xl hover:border-brand-accent transform hover:-translate-y-2">
-                        <div className="overflow-hidden">
-                           <img src={post.imageUrl} alt={post.title} className="w-full h-48 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110" loading="lazy" />
+                        <div className="overflow-hidden aspect-[16/9]">
+                           <img
+                             src={post.imageUrl}
+                             alt={post.title}
+                             className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                             loading="lazy"
+                             decoding="async"
+                             width={1600}
+                             height={900}
+                           />
                         </div>
                         <div className="p-6 flex flex-col flex-grow">
                             <h3 className="text-xl font-display font-bold text-brand-light group-hover:text-brand-accent transition-colors duration-300">{post.title}</h3>

@@ -4,15 +4,28 @@ import { useState, useEffect } from 'react';
 const useParallax = (speed: number) => {
   const [offsetY, setOffsetY] = useState(0);
 
+  // Throttle scroll work with requestAnimationFrame to reduce main-thread usage
   useEffect(() => {
+    let rafId: number | null = null;
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      setOffsetY(window.scrollY * speed);
+      lastScrollY = window.scrollY;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          setOffsetY(lastScrollY * speed);
+        });
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
     };
   }, [speed]);
 

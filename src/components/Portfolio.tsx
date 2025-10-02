@@ -2,6 +2,7 @@
 import React, { useMemo } from 'react';
 import AnimatedSection from './AnimatedSection';
 import InfiniteMenu from './InfiniteMenu';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 interface PortfolioItem {
     title: string;
@@ -43,9 +44,14 @@ const Portfolio = React.forwardRef<HTMLElement, PortfolioProps>(({ t }, ref) => 
         </div>
         
         <AnimatedSection delay={400}>
-            <div className="relative h-[70vh] w-full">
-                <InfiniteMenu items={mappedItems} />
-            </div>
+            {(() => {
+              const [gridRef, inView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.2, triggerOnce: false });
+              return (
+                <div ref={gridRef} className="relative h-[70vh] w-full">
+                  {inView && <InfiniteMenu items={mappedItems} />}
+                </div>
+              );
+            })()}
         </AnimatedSection>
 
       </div>

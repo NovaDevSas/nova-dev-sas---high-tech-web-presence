@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import AnimatedSection from './AnimatedSection';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 // Types and constants adapted from the provided example
 type LogoItem = {
@@ -321,19 +322,28 @@ const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, re
         </div>
         
         <AnimatedSection delay={300} className="mt-16">
-            <div
-                ref={containerRef}
-                className={rootClassName}
-                style={cssVariables}
-                role="region"
-                aria-label="Technology stack logos"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
-                <div className="logoloop__track" ref={trackRef}>
-                {logoLists}
-                </div>
-            </div>
+            {(() => {
+                const [techRef, inView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.15, triggerOnce: false });
+                return (
+                    <div ref={techRef}>
+                        <div
+                            ref={containerRef}
+                            className={rootClassName}
+                            style={cssVariables}
+                            role="region"
+                            aria-label="Technology stack logos"
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            {inView && (
+                                <div className="logoloop__track" ref={trackRef}>
+                                    {logoLists}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                );
+            })()}
         </AnimatedSection>
       </div>
        <style>{`

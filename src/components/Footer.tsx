@@ -1,5 +1,6 @@
-import React from 'react';
-import PostFooter from './PostFooter';
+import React, { Suspense } from 'react';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
+const PostFooter = React.lazy(() => import('./PostFooter'));
 
 interface FooterProps {
     t: {
@@ -100,10 +101,15 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
                 </div>
             </div>
             
-            {/* Interactive Canvas Section */}
-            <div className="relative w-full h-64 md:h-80" role="application" aria-label="Interactive NOVA DEV logo">
-                <PostFooter /> 
-            </div>
+            {/* Interactive Canvas Section (lazy in viewport) */}
+            {(() => {
+              const [canvasRef, inView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1, triggerOnce: false });
+              return (
+                <div ref={canvasRef} className="relative w-full h-64 md:h-80" role="application" aria-label="Interactive NOVA DEV logo">
+                  <Suspense fallback={null}>{inView && <PostFooter />}</Suspense>
+                </div>
+              );
+            })()}
 
             <div className="container mx-auto px-6">
                 <div className="border-t border-brand-light/10 py-8 text-center">

@@ -15,7 +15,10 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ style }) => {
     if (!ctx) return;
 
     let particles: Particle[] = [];
-    const particleCount = 50;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const particleCount = prefersReducedMotion
+      ? 20
+      : (window.innerWidth < 768 ? 30 : 50);
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -65,38 +68,41 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ style }) => {
     init();
 
     const connect = () => {
-        let opacityValue = 1;
-        for (let a = 0; a < particles.length; a++) {
-            for (let b = a; b < particles.length; b++) {
-                const distance = Math.sqrt(
-                    (particles[a].x - particles[b].x) * (particles[a].x - particles[b].x) +
-                    (particles[a].y - particles[b].y) * (particles[a].y - particles[b].y)
-                );
-
-                if (distance < 150) {
-                    opacityValue = 1 - (distance / 150);
-                    ctx.strokeStyle = `rgba(133, 72, 239, ${opacityValue})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.beginPath();
-                    ctx.moveTo(particles[a].x, particles[a].y);
-                    ctx.lineTo(particles[b].x, particles[b].y);
-                    ctx.stroke();
-                }
-            }
+      const maxDist = prefersReducedMotion ? 100 : 150;
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < maxDist) {
+            const opacityValue = 1 - (distance / maxDist);
+            ctx.strokeStyle = `rgba(133, 72, 239, ${opacityValue})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
         }
+      }
     };
 
     let animationFrameId: number;
-    const animate = () => {
+    let running = true;
+    const loop = () => {
+      if (!running) {
+        animationFrameId = requestAnimationFrame(loop);
+        return;
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
+      particles.forEach((p) => {
         p.update();
         p.draw();
       });
       connect();
-      animationFrameId = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(loop);
     };
-    animate();
+    loop();
 
     const handleResize = () => {
         resizeCanvas();
@@ -104,9 +110,12 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ style }) => {
     };
 
     window.addEventListener('resize', handleResize);
+    const handleVisibility = () => { running = !document.hidden; };
+    document.addEventListener('visibilitychange', handleVisibility);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibility);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

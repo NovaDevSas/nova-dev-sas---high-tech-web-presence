@@ -86,6 +86,10 @@ const About = React.forwardRef<HTMLElement, AboutProps>(({ t }, ref) => {
                                         alt={member.name}
                                         draggable={false}
                                         className="h-full w-full rounded-2xl object-cover object-center shadow-2xl"
+                                        loading="lazy"
+                                        decoding="async"
+                                        width={800}
+                                        height={800}
                                     />
                                 </div>
                             ))}

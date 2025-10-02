@@ -14,6 +14,13 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      target: 'es2020',
+      cssTarget: 'es2020',
+      modulePreload: {
+        polyfill: false
+      }
+    },
     define: {
       'process.env.API_KEY': JSON.stringify(process.env.GEMINI_API_KEY),
       'process.env.GEMINI_API_KEY': JSON.stringify(process.env.GEMINI_API_KEY)
