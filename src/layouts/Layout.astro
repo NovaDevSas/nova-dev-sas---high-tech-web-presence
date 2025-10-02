@@ -18,6 +18,31 @@ const { title = "Nova Dev SAS | Desarrollo de Software a la Medida en Colombia",
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content="desarrollo de software, colombia, cajicá, aplicaciones web, aplicaciones móviles, ui/ux, nova dev sas, tecnología, software a la medida" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://novadev.com.co/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://novadev.com.co/team/team-nova.webp" />
+    <meta property="og:site_name" content="Nova Dev SAS" />
+    <meta property="og:locale" content="es_CO" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://novadev.com.co/" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://novadev.com.co/team/team-nova.webp" />
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Nova Dev SAS" />
+    <meta name="language" content="Spanish" />
+    <meta name="geo.region" content="CO-CUN" />
+    <meta name="geo.placename" content="Cajicá, Colombia" />
+    <meta name="geo.position" content="4.9186;-74.0289" />
+    <meta name="ICBM" content="4.9186, -74.0289" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,20 +80,83 @@ const { title = "Nova Dev SAS | Desarrollo de Software a la Medida en Colombia",
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Nova Dev SAS",
-      "url": "https://your-website-url.com",
-      "logo": "https://your-website-url.com/logo.png",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+57-310-864-4580",
-        "contactType": "Customer Service"
+      "alternateName": "Nova Dev",
+      "url": "https://novadev.com.co",
+      "logo": "https://novadev.com.co/team/logo.webp",
+      "image": "https://novadev.com.co/team/team-nova.webp",
+      "description": "Nova Dev SAS es una agencia de desarrollo de software en Cajicá, Colombia, especializada en aplicaciones web, móviles y soluciones a la medida para impulsar la transformación digital de tu negocio.",
+      "foundingDate": "2023",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cajicá",
+        "addressRegion": "Cundinamarca",
+        "addressCountry": "CO"
       },
-       "service": {
-        "@type": "Service",
-        "serviceType": "Software Development",
-        "provider": {
-          "@type": "Organization",
-          "name": "Nova Dev SAS"
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+57-310-864-4580",
+          "contactType": "Customer Service",
+          "availableLanguage": ["Spanish", "English"]
         }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/nova-dev-sas",
+        "https://github.com/nova-dev-sas",
+        "https://twitter.com/novadev_sas"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Software Development Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Web Development",
+              "description": "High-performance, scalable web applications tailored to your business needs."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mobile App Development",
+              "description": "Native and cross-platform mobile applications for iOS and Android."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "UI/UX Design",
+              "description": "Intuitive and beautiful user interfaces that provide an exceptional user experience."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Cloud Solutions",
+              "description": "Robust cloud infrastructure and DevOps services to ensure scalability and reliability."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "AI Integration",
+              "description": "Leverage the power of artificial intelligence to automate processes and gain insights."
+            }
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "47",
+        "bestRating": "5",
+        "worstRating": "1"
       }
     }
     </script>

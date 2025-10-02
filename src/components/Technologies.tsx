@@ -174,17 +174,11 @@ const getCarouselSettings = (width: number) => {
 };
 
 const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, ref) => {
-    // State for responsive settings - use default desktop settings for SSR
-    const [settings, setSettings] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return getCarouselSettings(window.innerWidth);
-        }
-        // Default to desktop settings for server-side rendering
-        return {
-            speed: 45,
-            logoHeight: 80,
-            gap: 80,
-        };
+    // State for responsive settings - always start with desktop settings for consistent SSR
+    const [settings, setSettings] = useState({
+        speed: 45,
+        logoHeight: 80,
+        gap: 80,
     });
 
     // Update settings on window resize
@@ -192,7 +186,7 @@ const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, re
         // Only run on client side
         if (typeof window === 'undefined') return;
         
-        // Set initial settings based on current window size
+        // Set initial settings based on current window size after hydration
         setSettings(getCarouselSettings(window.innerWidth));
         
         const handleResize = () => {
@@ -322,28 +316,15 @@ const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, re
         </div>
         
         <AnimatedSection delay={300} className="mt-16">
-            {(() => {
-                const [techRef, inView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.15, triggerOnce: false });
-                return (
-                    <div ref={techRef}>
-                        <div
-                            ref={containerRef}
-                            className={rootClassName}
-                            style={cssVariables}
-                            role="region"
-                            aria-label="Technology stack logos"
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            {inView && (
-                                <div className="logoloop__track" ref={trackRef}>
-                                    {logoLists}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                );
-            })()}
+            <TechCarousel
+                containerRef={containerRef}
+                trackRef={trackRef}
+                rootClassName={rootClassName}
+                cssVariables={cssVariables}
+                logoLists={logoLists}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            />
         </AnimatedSection>
       </div>
        <style>{`
@@ -446,5 +427,51 @@ const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, re
     </section>
   );
 });
+
+// Separate component to handle intersection observer properly
+interface TechCarouselProps {
+    containerRef: React.RefObject<HTMLDivElement>;
+    trackRef: React.RefObject<HTMLDivElement>;
+    rootClassName: string;
+    cssVariables: React.CSSProperties;
+    logoLists: React.ReactNode;
+    onMouseEnter: () => void;
+    onMouseLeave: () => void;
+}
+
+const TechCarousel: React.FC<TechCarouselProps> = ({
+    containerRef,
+    trackRef,
+    rootClassName,
+    cssVariables,
+    logoLists,
+    onMouseEnter,
+    onMouseLeave
+}) => {
+    const [techRef, inView] = useIntersectionObserver<HTMLDivElement>({ 
+        threshold: 0.15, 
+        triggerOnce: false 
+    });
+
+    return (
+        <div ref={techRef}>
+            <div
+                ref={containerRef}
+                className={rootClassName}
+                style={cssVariables}
+                role="region"
+                aria-label="Technology stack logos"
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+            >
+                {inView && (
+                    <div className="logoloop__track" ref={trackRef}>
+                        {logoLists}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
 
 export default Technologies;

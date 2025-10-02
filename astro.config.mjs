@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://novadev.com.co',
   integrations: [
     react()
   ],
@@ -12,6 +13,11 @@ export default defineConfig({
     port: 3000,
     host: '0.0.0.0',
   },
+  build: {
+    inlineStylesheets: 'auto',
+    assets: '_astro'
+  },
+  compressHTML: true,
   vite: {
     plugins: [tailwindcss()],
     build: {
@@ -19,6 +25,22 @@ export default defineConfig({
       cssTarget: 'es2020',
       modulePreload: {
         polyfill: false
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor': ['react', 'react-dom'],
+            'three': ['three'],
+            'framer': ['framer-motion']
+          }
+        }
+      },
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true
+        }
       }
     },
     define: {
