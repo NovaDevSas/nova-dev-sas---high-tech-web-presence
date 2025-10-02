@@ -53,6 +53,11 @@ const About = React.forwardRef<HTMLElement, AboutProps>(({ t }, ref) => {
     const handleNext = () => setActive((prev) => (prev + 1) % t.teamMembers.length);
     const handlePrev = () => setActive((prev) => (prev - 1 + t.teamMembers.length) % t.teamMembers.length);
 
+    // Indices vecinos para mostrar detrás de la imagen activa
+    const len = t.teamMembers.length;
+    const prevIndex = (active - 1 + len) % len;
+    const nextIndex = (active + 1) % len;
+
     return (
         <section id="about" ref={ref} className="py-20 md:py-32 bg-brand-dark text-brand-light relative overflow-hidden">
             <div className="container mx-auto px-6 relative z-10">
@@ -74,18 +79,25 @@ const About = React.forwardRef<HTMLElement, AboutProps>(({ t }, ref) => {
                             {t.teamMembers.map((member, index) => (
                                 <div
                                     key={member.src}
-                                    className="absolute inset-0 origin-center transition-all duration-500 ease-in-out"
+                                    className="absolute inset-0 origin-center transition-all duration-800 ease-in-out"
                                     style={{
-                                        opacity: index === active ? 1 : 0,
-                                        transform: `scale(${index === active ? 1 : 0.95}) translateY(${index === active ? 0 : '10px'})`,
-                                        zIndex: index === active ? t.teamMembers.length : t.teamMembers.length - Math.abs(index - active),
+                                        opacity: index === active ? 1 : ((index === prevIndex || index === nextIndex) ? 0.4 : 0),
+                                        transform:
+                                            index === active
+                                                ? 'scale(1) translateX(0) translateY(0) rotate(0deg)'
+                                                : index === prevIndex
+                                                    ? 'scale(0.95) translateX(-40px) translateY(20px) rotate(-15deg)'
+                                                    : index === nextIndex
+                                                        ? 'scale(0.95) translateX(40px) translateY(20px) rotate(15deg)'
+                                                        : 'scale(0.9) translateY(30px)',
+                                        zIndex: index === active ? 30 : ((index === prevIndex || index === nextIndex) ? 20 : 10),
                                     }}
                                 >
                                     <img
                                         src={member.src}
                                         alt={member.name}
                                         draggable={false}
-                                        className="h-full w-full rounded-2xl object-cover object-center shadow-2xl"
+                                        className={`h-full w-full rounded-2xl object-cover object-center ${index === active ? 'shadow-2xl' : 'shadow-lg brightness-50'}`}
                                         loading="lazy"
                                         decoding="async"
                                         width={800}
@@ -98,7 +110,7 @@ const About = React.forwardRef<HTMLElement, AboutProps>(({ t }, ref) => {
 
                     {/* Text Column */}
                     <div className="flex flex-col justify-between text-center md:text-left min-h-[350px]">
-                        <div key={active} className="animate-fade-in" style={{ animationDuration: '0.5s' }}>
+                        <div key={active} className="animate-fade-in" style={{ animationDuration: '0.9s' }}>
                             <h3 className="text-3xl lg:text-4xl font-display font-bold text-brand-light">{t.teamMembers[active].name}</h3>
                             <p className="text-md text-brand-accent font-semibold mt-1">{t.teamMembers[active].designation}</p>
                             <blockquote className="mt-6 text-lg text-brand-light/70 leading-relaxed italic">

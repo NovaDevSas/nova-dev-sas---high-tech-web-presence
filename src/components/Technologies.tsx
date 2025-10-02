@@ -160,14 +160,14 @@ const techStack = [
 const getCarouselSettings = (width: number) => {
     if (width < 768) { // Mobile
         return {
-            speed: 40,
+            speed: 20,
             logoHeight: 48, // w-12
             gap: 40,
         };
     }
     // Desktop
     return {
-        speed: 80,
+        speed: 45,
         logoHeight: 80, // w-20
         gap: 80,
     };
@@ -181,7 +181,7 @@ const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, re
         }
         // Default to desktop settings for server-side rendering
         return {
-            speed: 80,
+            speed: 45,
             logoHeight: 80,
             gap: 80,
         };
