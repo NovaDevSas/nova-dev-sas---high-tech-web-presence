@@ -94,7 +94,7 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
                             <div className="flex">
                                 <label htmlFor="footer-email" className="sr-only">{t.newsletterPlaceholder}</label>
                                 <input id="footer-email" type="email" placeholder={t.newsletterPlaceholder} className="w-full bg-[#1e1e1e] border border-brand-light/20 rounded-l-md px-4 py-2 text-brand-light focus:ring-brand-accent focus:border-brand-accent" />
-                                <button type="submit" className="bg-brand-accent text-brand-dark font-bold px-4 rounded-r-md hover:bg-brand-accent-dark transition-colors">{t.newsletterButton}</button>
+                                <button type="submit" className="bg-brand-accent text-white font-bold px-4 rounded-r-md hover:bg-brand-accent-dark transition-colors">{t.newsletterButton}</button>
                             </div>
                          </form>
                     </div>

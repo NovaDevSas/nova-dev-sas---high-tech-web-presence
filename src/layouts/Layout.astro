@@ -44,9 +44,23 @@ const { title = "Nova Dev SAS | Desarrollo de Software a la Medida en Colombia",
     <meta name="geo.position" content="4.9186;-74.0289" />
     <meta name="ICBM" content="4.9186, -74.0289" />
 
+    <!-- DNS prefetch for faster font loading -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <!-- Preconnect for critical font resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical font files -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Inter:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Inter:wght@400;500;700&display=swap"></noscript>
+    
+    <!-- Resource hints for critical resources (paths will be resolved at build time) -->
+    
+    <!-- Resource hints for better performance -->
+    <link rel="dns-prefetch" href="//api.whatsapp.com" />
+    <link rel="preconnect" href="https://api.whatsapp.com" crossorigin />
 
     <style>
       /* Custom Scrollbar Styles */
@@ -163,5 +177,20 @@ const { title = "Nova Dev SAS | Desarrollo de Software a la Medida en Colombia",
   </head>
   <body>
     <slot />
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

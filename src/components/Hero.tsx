@@ -46,7 +46,7 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(({ t }, ref) => {
         </AnimatedSection>
         <AnimatedSection delay={400}>
           <div className="mt-10">
-            <button onClick={scrollToContact} className="font-display text-lg font-bold bg-brand-accent text-brand-dark px-8 py-4 rounded-sm uppercase tracking-widest hover:bg-brand-accent-dark hover:shadow-lg hover:shadow-brand-accent/30 transition-all duration-300 transform hover:-translate-y-1">
+            <button onClick={scrollToContact} className="font-display text-lg font-bold bg-brand-accent text-white px-8 py-4 rounded-sm uppercase tracking-widest hover:bg-brand-accent-dark hover:shadow-lg hover:shadow-brand-accent/30 transition-all duration-300 transform hover:-translate-y-1">
               {t.cta}
             </button>
           </div>

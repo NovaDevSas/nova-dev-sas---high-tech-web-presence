@@ -3,19 +3,23 @@ import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import Header from './Header';
 import { translations, Language, Post as BlogPostType } from '../translations';
 import FloatingWhatsApp from './FloatingWhatsApp';
-import About from './About';
 import Hero from './Hero';
-import Services from './Services';
-import Technologies from './Technologies';
-import Portfolio from './Portfolio';
-import CaseStudies from './CaseStudies';
-import Impact from './Impact';
-import Process from './Process';
-import Testimonials from './Testimonials';
-import Blog from './Blog';
-import Contact from './Contact';
-import Footer from './Footer';
+import LoadingSpinner from './LoadingSpinner';
 
+// Critical components loaded immediately
+import About from './About';
+import Services from './Services';
+
+// Non-critical components loaded lazily
+const Technologies = lazy(() => import('./Technologies'));
+const Portfolio = lazy(() => import('./Portfolio'));
+const CaseStudies = lazy(() => import('./CaseStudies'));
+const Impact = lazy(() => import('./Impact'));
+const Process = lazy(() => import('./Process'));
+const Testimonials = lazy(() => import('./Testimonials'));
+const Blog = lazy(() => import('./Blog'));
+const Contact = lazy(() => import('./Contact'));
+const Footer = lazy(() => import('./Footer'));
 const BlogModal = lazy(() => import('./BlogModal'));
 
 
@@ -131,16 +135,34 @@ function App() {
             <Hero ref={sectionRefs.hero} t={t.hero} />
             <About ref={sectionRefs.about} t={t.about} />
             <Services ref={sectionRefs.services} t={t.services} />
-            <Technologies ref={sectionRefs.technologies} t={t.technologies} />
-            <Portfolio ref={sectionRefs.portfolio} t={t.portfolio} />
-            <CaseStudies ref={sectionRefs.casestudies} t={t.casestudies} />
-            <Impact ref={sectionRefs.impact} t={t.impact} />
-            <Process ref={sectionRefs.process} t={t.process} />
-            <Testimonials ref={sectionRefs.testimonials} t={t.testimonials} />
-            <Blog ref={sectionRefs.blog} t={t.blog} setSelectedPost={setSelectedPost} />
-            <Contact ref={sectionRefs.contact} t={t.contact} />
+            <Suspense fallback={<LoadingSpinner />}>
+              <Technologies ref={sectionRefs.technologies} t={t.technologies} />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Portfolio ref={sectionRefs.portfolio} t={t.portfolio} />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <CaseStudies ref={sectionRefs.casestudies} t={t.casestudies} />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Impact ref={sectionRefs.impact} t={t.impact} />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Process ref={sectionRefs.process} t={t.process} />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Testimonials ref={sectionRefs.testimonials} t={t.testimonials} />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Blog ref={sectionRefs.blog} t={t.blog} setSelectedPost={setSelectedPost} />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Contact ref={sectionRefs.contact} t={t.contact} />
+            </Suspense>
         </main>
-        <Footer t={t.footer} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Footer t={t.footer} />
+        </Suspense>
          <Suspense fallback={null}>
             <BlogModal post={selectedPost} onClose={() => setSelectedPost(null)} />
          </Suspense>

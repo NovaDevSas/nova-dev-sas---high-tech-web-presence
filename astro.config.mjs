@@ -14,8 +14,9 @@ export default defineConfig({
     host: '0.0.0.0',
   },
   build: {
-    inlineStylesheets: 'auto',
-    assets: '_astro'
+    inlineStylesheets: 'never',
+    assets: '_astro',
+    split: true
   },
   compressHTML: true,
   vite: {
@@ -28,20 +29,51 @@ export default defineConfig({
       },
       rollupOptions: {
         output: {
-          manualChunks: {
-            'vendor': ['react', 'react-dom'],
-            'three': ['three'],
-            'framer': ['framer-motion']
-          }
+          manualChunks: (id) => {
+            // Vendor chunks
+            if (id.includes('node_modules')) {
+              if (id.includes('react') || id.includes('react-dom')) {
+                return 'react-vendor';
+              }
+              if (id.includes('three')) {
+                return 'three-vendor';
+              }
+              if (id.includes('framer-motion')) {
+                return 'framer-vendor';
+              }
+              return 'vendor';
+            }
+            // Component chunks
+            if (id.includes('/components/')) {
+              if (id.includes('Blog') || id.includes('Modal')) {
+                return 'blog-components';
+              }
+              if (id.includes('Hero') || id.includes('Header') || id.includes('Footer')) {
+                return 'layout-components';
+              }
+              return 'components';
+            }
+          },
+          chunkFileNames: 'assets/[name]-[hash].js',
+          entryFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash].[ext]'
         }
       },
       minify: 'terser',
       terserOptions: {
         compress: {
           drop_console: true,
-          drop_debugger: true
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info'],
+          passes: 2
+        },
+        mangle: {
+          safari10: true
         }
-      }
+      },
+      cssCodeSplit: true,
+      reportCompressedSize: false,
+      chunkSizeWarningLimit: 1000
     },
     define: {
       'process.env.API_KEY': JSON.stringify(process.env.GEMINI_API_KEY),

@@ -112,7 +112,7 @@ const About = React.forwardRef<HTMLElement, AboutProps>(({ t }, ref) => {
                     <div className="flex flex-col justify-between text-center md:text-left min-h-[350px]">
                         <div key={active} className="animate-fade-in" style={{ animationDuration: '0.9s' }}>
                             <h3 className="text-3xl lg:text-4xl font-display font-bold text-brand-light">{t.teamMembers[active].name}</h3>
-                            <p className="text-md text-brand-accent font-semibold mt-1">{t.teamMembers[active].designation}</p>
+                            <p className="text-md text-brand-light/90 font-semibold mt-1">{t.teamMembers[active].designation}</p>
                             <blockquote className="mt-6 text-lg text-brand-light/70 leading-relaxed italic">
                                 "{t.teamMembers[active].quote}"
                             </blockquote>
