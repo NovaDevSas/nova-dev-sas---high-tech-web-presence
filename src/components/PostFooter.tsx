@@ -46,7 +46,7 @@ const PostFooter: React.FC = () => {
     const mouse = {
       x: -1000,
       y: -1000,
-      radius: 120, // Radius of mouse effect
+      radius: window.innerWidth < 768 ? 80 : 120, // Smaller radius for mobile
     };
 
     const handleMouseMove = (event: MouseEvent) => {
@@ -60,8 +60,37 @@ const PostFooter: React.FC = () => {
         mouse.y = -1000;
     };
 
+    // Touch event handlers for mobile devices
+    const handleTouchStart = (event: TouchEvent) => {
+      event.preventDefault(); // Prevent scrolling
+      const rect = canvas.getBoundingClientRect();
+      const touch = event.touches[0];
+      mouse.x = touch.clientX - rect.left;
+      mouse.y = touch.clientY - rect.top;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault(); // Prevent scrolling
+      const rect = canvas.getBoundingClientRect();
+      const touch = event.touches[0];
+      mouse.x = touch.clientX - rect.left;
+      mouse.y = touch.clientY - rect.top;
+    };
+
+    const handleTouchEnd = (event: TouchEvent) => {
+      event.preventDefault();
+      mouse.x = -1000;
+      mouse.y = -1000;
+    };
+
+    // Mouse events for desktop
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseleave', handleMouseLeave);
+    
+    // Touch events for mobile devices
+    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+    canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
 
     class Particle {
       x: number;
@@ -189,8 +218,15 @@ const PostFooter: React.FC = () => {
     animate();
 
     return () => {
+      // Remove mouse events
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
+      
+      // Remove touch events
+      canvas.removeEventListener('touchstart', handleTouchStart);
+      canvas.removeEventListener('touchmove', handleTouchMove);
+      canvas.removeEventListener('touchend', handleTouchEnd);
+      
       resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
     };

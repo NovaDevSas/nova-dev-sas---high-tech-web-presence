@@ -74,12 +74,16 @@ void main() {
     float imageAspect = float(texSize.x) / float(texSize.y);
     float containerAspect = 1.0;
     
+    // Use object-fit: cover behavior - scale to fill while maintaining aspect ratio
     float scale = max(imageAspect / containerAspect, 
                      containerAspect / imageAspect);
     
     vec2 st = vec2(vUvs.x, 1.0 - vUvs.y);
-    st = (st - 0.5) * scale + 0.5;
     
+    // Center the image and scale it to cover the circle completely
+    st = (st - 0.5) / scale + 0.5;
+    
+    // Ensure we don't sample outside the texture bounds
     st = clamp(st, 0.0, 1.0);
     
     st = st * cellSize + cellOffset;
@@ -1075,6 +1079,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null) as MutableRefObject<HTMLCanvasElement | null>;
   const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
   const [isMoving, setIsMoving] = useState<boolean>(true); // Start as moving to hide initial text
+  const [hasInteracted, setHasInteracted] = useState(false);
   
   const defaultItems: MenuItem[] = [
     {
@@ -1105,7 +1110,12 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
     };
 
     if (canvas) {
-      sketch = new InfiniteGridMenu(canvas, displayItems, handleActiveItem, setIsMoving, sk =>
+      sketch = new InfiniteGridMenu(canvas, displayItems, handleActiveItem, (moving) => {
+        setIsMoving(moving);
+        if (moving && !hasInteracted) {
+          setHasInteracted(true);
+        }
+      }, sk =>
         sk.run()
       );
     }
@@ -1138,10 +1148,37 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
   return (
     <div className="relative w-full h-full">
       <canvas id="infinite-grid-menu-canvas" ref={canvasRef} />
+      
+      {/* Floating hint indicators */}
+      <div className={`canvas-hints ${hasInteracted ? 'hidden' : ''}`}>
+        <div className="hint-indicator top-left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </div>
+        <div className="hint-indicator top-right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 17L7 7M7 7H17M7 7V17"/>
+          </svg>
+        </div>
+        <div className="hint-indicator bottom-left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 7L17 17M17 17H7M17 17V7"/>
+          </svg>
+        </div>
+        <div className="hint-indicator bottom-right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 7L7 17M7 17H17M7 17V7"/>
+          </svg>
+        </div>
+      </div>
+      
       <div className={`info-container ${isMoving ? 'inactive' : 'active'}`}>
         <div className="info-content">
            <div className="hand-prompt">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2.67L14 21V11h4a2 2 0 0 0 2-2z"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 13V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2.67L14 21V11h4a2 2 0 0 0 2-2z"/>
+              </svg>
            </div>
            {activeItem && (
             <>

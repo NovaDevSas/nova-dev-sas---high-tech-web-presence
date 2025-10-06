@@ -104,15 +104,23 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, language, se
       </header>
       {/* Mobile Menu Overlay */}
       <div id="mobile-menu" className={`fixed inset-0 bg-brand-dark/95 backdrop-blur-xl z-40 transition-transform duration-500 ease-in-out transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}>
-        <div className="flex flex-col items-center justify-center h-full space-y-8">
+        <div className="flex flex-col h-full overflow-y-auto">
+          {/* Spacer to push content below header */}
+          <div className="h-20 flex-shrink-0"></div>
+          
+          {/* Scrollable content area */}
+          <div className="flex-1 flex flex-col items-center justify-start py-8 px-6 space-y-6 min-h-0">
             {navLinks.map(link => (
-              <a key={link} href={`#${link}`} onClick={(e) => { e.preventDefault(); scrollToSection(link); }} className="text-3xl font-display text-brand-light hover:text-brand-accent transition-colors duration-300">
+              <a key={link} href={`#${link}`} onClick={(e) => { e.preventDefault(); scrollToSection(link); }} className="text-2xl sm:text-3xl font-display text-brand-light hover:text-brand-accent transition-colors duration-300 text-center">
                 {t[link]}
               </a>
             ))}
-            <div className="pt-8">
+            
+            {/* Language switcher with more spacing */}
+            <div className="pt-6 pb-8">
                 <LanguageSwitcher language={language} setLanguage={setLanguage} />
             </div>
+          </div>
         </div>
       </div>
     </>

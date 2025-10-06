@@ -63,15 +63,67 @@ function App() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        // Filter sections that are intersecting and have a meaningful intersection
         const visibleSections = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+          .filter(entry => entry.isIntersecting && entry.intersectionRatio > 0.1)
+          .map(entry => ({
+            id: entry.target.id as SectionName,
+            ratio: entry.intersectionRatio,
+            boundingRect: entry.boundingClientRect,
+            rootBounds: entry.rootBounds
+          }));
 
         if (visibleSections.length > 0) {
-          setActiveSection(visibleSections[0].target.id as SectionName);
+          // Find the section that is most prominently visible
+          // Priority: section closest to center of viewport
+          const centerY = window.innerHeight / 2;
+          
+          let bestSection = visibleSections[0];
+          let bestScore = -Infinity;
+          
+          for (const section of visibleSections) {
+            const sectionCenter = section.boundingRect.top + section.boundingRect.height / 2;
+            const distanceFromCenter = Math.abs(centerY - sectionCenter);
+            
+            // Score based on intersection ratio and proximity to center
+            // Higher intersection ratio and closer to center = better score
+            const score = section.ratio * 100 - distanceFromCenter * 0.1;
+            
+            if (score > bestScore) {
+              bestScore = score;
+              bestSection = section;
+            }
+          }
+          
+          setActiveSection(bestSection.id);
+        } else {
+          // Fallback: if no sections are intersecting, find the closest one to the viewport center
+          const allSections = Object.keys(sectionRefs) as SectionName[];
+          const centerY = window.innerHeight / 2;
+          let closestSection: SectionName = 'hero';
+          let closestDistance = Infinity;
+          
+          allSections.forEach(sectionName => {
+            const element = sectionRefs[sectionName]?.current;
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              const sectionCenter = rect.top + rect.height / 2;
+              const distance = Math.abs(centerY - sectionCenter);
+              
+              if (distance < closestDistance) {
+                closestDistance = distance;
+                closestSection = sectionName;
+              }
+            }
+          });
+          
+          setActiveSection(closestSection);
         }
       },
-      { threshold: [0.2, 0.5, 0.8] }
+      { 
+        threshold: [0.1, 0.25, 0.5, 0.75, 1.0],
+        rootMargin: '-80px 0px -20% 0px' // Account for header height and give more weight to upper sections
+      }
     );
 
     Object.values(sectionRefs).forEach((ref) => {
