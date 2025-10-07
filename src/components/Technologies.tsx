@@ -155,6 +155,12 @@ const techStack = [
     { id: 'typescript', logoUrl: '/logos/typescript.webp' },
     { id: 'docker', logoUrl: '/logos/docker.webp' },
     { id: 'postgres', logoUrl: '/logos/postgresql.webp' },
+    { id: 'astro', logoUrl: '/logos/astro.webp' },
+    { id: 'github', logoUrl: '/logos/github.webp' },
+    { id: 'n8n', logoUrl: '/logos/n8n.webp' },
+    { id: 'supabase', logoUrl: '/logos/supabase.webp' },
+    { id: 'nova', logoUrl: '/logos/nova.webp' },
+    { id: 'java', logoUrl: '/logos/java.webp' },
 ];
 
 const getCarouselSettings = (width: number) => {
@@ -367,12 +373,13 @@ const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, re
 
         .logoloop__item img {
             height: var(--logoloop-logoHeight);
-            width: auto;
+            width: var(--logoloop-logoHeight);
             display: block;
-            object-fit: contain;
+            object-fit: cover;
             image-rendering: -webkit-optimize-contrast;
             -webkit-user-drag: none;
             pointer-events: none;
+            border-radius: 50%;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -383,7 +390,7 @@ const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, re
         .logoloop--scale-hover .logoloop__item:hover img {
             transform: scale(1.2);
             transform-origin: center center;
-            filter: invert(1) brightness(1.1) opacity(1);
+            filter: brightness(1.1);
         }
 
         .logoloop--fade::before,
