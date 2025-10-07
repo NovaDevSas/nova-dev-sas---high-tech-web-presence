@@ -1149,27 +1149,35 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
     <div className="relative w-full h-full">
       <canvas id="infinite-grid-menu-canvas" ref={canvasRef} />
       
-      {/* Floating hint indicators */}
-      <div className={`canvas-hints ${hasInteracted ? 'hidden' : ''}`}>
-        <div className="hint-indicator top-left">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M7 17L17 7M17 7H7M17 7V17"/>
-          </svg>
-        </div>
-        <div className="hint-indicator top-right">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M17 17L7 7M7 7H17M7 7V17"/>
-          </svg>
-        </div>
-        <div className="hint-indicator bottom-left">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M7 7L17 17M17 17H7M17 17V7"/>
-          </svg>
-        </div>
-        <div className="hint-indicator bottom-right">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M17 7L7 17M7 17H17M7 17V7"/>
-          </svg>
+      {/* Interactive instruction overlay */}
+      <div className={`interaction-overlay ${hasInteracted ? 'hidden' : ''}`}>
+        <div className="interaction-content">
+          <div className="drag-demo">
+            <div className="cursor-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div className="drag-arrows">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </div>
+            <div className="drag-trail"></div>
+          </div>
+          <div className="instruction-text">
+             <h3>Explora nuestros proyectos</h3>
+            <p>Arrastra para navegar por el portfolio</p>
+            <div className="action-hint">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="hint-icon">
+                <path d="M9 12l2 2 4-4"/>
+                <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.12 0 4.07.74 5.61 1.98"/>
+              </svg>
+              <span>Haz clic y arrastra</span>
+            </div>
+          </div>
         </div>
       </div>
       

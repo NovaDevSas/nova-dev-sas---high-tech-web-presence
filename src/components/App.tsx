@@ -61,84 +61,104 @@ function App() {
 
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Filter sections that are intersecting and have a meaningful intersection
-        const visibleSections = entries
-          .filter(entry => entry.isIntersecting && entry.intersectionRatio > 0.1)
-          .map(entry => ({
-            id: entry.target.id as SectionName,
-            ratio: entry.intersectionRatio,
-            boundingRect: entry.boundingClientRect,
-            rootBounds: entry.rootBounds
-          }));
-
-        if (visibleSections.length > 0) {
-          // Find the section that is most prominently visible
-          // Priority: section closest to center of viewport
-          const centerY = window.innerHeight / 2;
-          
-          let bestSection = visibleSections[0];
-          let bestScore = -Infinity;
-          
-          for (const section of visibleSections) {
-            const sectionCenter = section.boundingRect.top + section.boundingRect.height / 2;
-            const distanceFromCenter = Math.abs(centerY - sectionCenter);
-            
-            // Score based on intersection ratio and proximity to center
-            // Higher intersection ratio and closer to center = better score
-            const score = section.ratio * 100 - distanceFromCenter * 0.1;
-            
-            if (score > bestScore) {
-              bestScore = score;
-              bestSection = section;
-            }
+    let observer: IntersectionObserver | null = null;
+    let debounceTimer: NodeJS.Timeout | null = null;
+    let lastActiveSection: SectionName | null = null;
+    
+    const initializeObserver = () => {
+      if (observer) {
+        observer.disconnect();
+      }
+      
+      observer = new IntersectionObserver(
+        (entries) => {
+          // Clear previous debounce timer
+          if (debounceTimer) {
+            clearTimeout(debounceTimer);
           }
           
-          setActiveSection(bestSection.id);
-        } else {
-          // Fallback: if no sections are intersecting, find the closest one to the viewport center
-          const allSections = Object.keys(sectionRefs) as SectionName[];
-          const centerY = window.innerHeight / 2;
-          let closestSection: SectionName = 'hero';
-          let closestDistance = Infinity;
-          
-          allSections.forEach(sectionName => {
-            const element = sectionRefs[sectionName]?.current;
-            if (element) {
-              const rect = element.getBoundingClientRect();
-              const sectionCenter = rect.top + rect.height / 2;
-              const distance = Math.abs(centerY - sectionCenter);
-              
-              if (distance < closestDistance) {
-                closestDistance = distance;
-                closestSection = sectionName;
+          // Debounce the section change to avoid rapid switching
+          debounceTimer = setTimeout(() => {
+            // Find the section that is most visible in the viewport
+            const allSections = Object.keys(sectionRefs) as SectionName[];
+            let bestSection: SectionName = lastActiveSection || 'hero';
+            let bestScore = -1;
+            
+            allSections.forEach(sectionName => {
+              const element = sectionRefs[sectionName]?.current;
+              if (element) {
+                const rect = element.getBoundingClientRect();
+                const headerHeight = 80;
+                
+                // Calculate how much of the section is visible
+                const viewportHeight = window.innerHeight;
+                const sectionTop = Math.max(rect.top, headerHeight);
+                const sectionBottom = Math.min(rect.bottom, viewportHeight);
+                const visibleHeight = Math.max(0, sectionBottom - sectionTop);
+                const visibilityRatio = visibleHeight / (rect.height || 1);
+                
+                // Prefer sections that are more visible and closer to the top
+                let score = visibilityRatio;
+                
+                // Bonus for sections that start near the top of viewport (after header)
+                if (rect.top <= headerHeight + 50 && rect.bottom > headerHeight + 100) {
+                  score += 0.3;
+                }
+                
+                // Small hysteresis: give current active section a slight advantage
+                if (sectionName === lastActiveSection) {
+                  score += 0.1;
+                }
+                
+                if (score > bestScore && visibilityRatio > 0.2) {
+                  bestScore = score;
+                  bestSection = sectionName;
+                }
               }
+            });
+            
+            // Only update if we have a meaningful change
+            if (bestSection !== lastActiveSection && bestScore > 0.2) {
+              lastActiveSection = bestSection;
+              setActiveSection(bestSection);
             }
-          });
-          
-          setActiveSection(closestSection);
+          }, 100); // 100ms debounce
+        },
+        { 
+          threshold: [0, 0.25, 0.5, 0.75, 1],
+          rootMargin: '-80px 0px -20% 0px'
         }
-      },
-      { 
-        threshold: [0.1, 0.25, 0.5, 0.75, 1.0],
-        rootMargin: '-80px 0px -20% 0px' // Account for header height and give more weight to upper sections
-      }
-    );
+      );
 
-    Object.values(sectionRefs).forEach((ref) => {
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
-    });
-
-    return () => {
+      // Observe all available sections
       Object.values(sectionRefs).forEach((ref) => {
         if (ref.current) {
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-          observer.unobserve(ref.current);
+          observer!.observe(ref.current);
         }
       });
+    };
+
+    // Initial setup
+    initializeObserver();
+    
+    // Re-initialize observer when lazy components load
+    const reinitializeTimer = setTimeout(() => {
+      initializeObserver();
+    }, 1000);
+    
+    // Also reinitialize on window resize
+    const handleResize = () => {
+      setTimeout(initializeObserver, 100);
+    };
+    
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+      clearTimeout(reinitializeTimer);
+      window.removeEventListener('resize', handleResize);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

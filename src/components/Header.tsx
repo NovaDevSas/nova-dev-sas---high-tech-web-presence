@@ -52,7 +52,11 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, language, se
                 key={link} 
                 href={`#${link}`} 
                 onClick={(e) => { e.preventDefault(); scrollToSection(link); }} 
-                className={`relative px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium transition-colors duration-300 rounded-md whitespace-nowrap ${activeSection === link ? 'text-brand-accent' : 'text-brand-light hover:text-brand-accent/80'}`}
+                className={`relative px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium transition-colors duration-300 whitespace-nowrap ${
+                  activeSection === link 
+                    ? 'text-brand-accent' 
+                    : 'text-brand-light hover:text-brand-accent/80'
+                }`}
               >
                 {t[link]}
                  {activeSection === link && (
@@ -71,7 +75,11 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, language, se
                 key={link} 
                 href={`#${link}`} 
                 onClick={(e) => { e.preventDefault(); scrollToSection(link); }} 
-                className={`relative px-2 py-2 text-xs font-medium transition-colors duration-300 rounded-md whitespace-nowrap ${activeSection === link ? 'text-brand-accent' : 'text-brand-light hover:text-brand-accent/80'}`}
+                className={`relative px-2 py-2 text-xs font-medium transition-colors duration-300 whitespace-nowrap ${
+                  activeSection === link 
+                    ? 'text-brand-accent' 
+                    : 'text-brand-light hover:text-brand-accent/80'
+                }`}
               >
                 {t[link]}
                  {activeSection === link && (
@@ -111,7 +119,16 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, language, se
           {/* Scrollable content area */}
           <div className="flex-1 flex flex-col items-center justify-start py-8 px-6 space-y-6 min-h-0">
             {navLinks.map(link => (
-              <a key={link} href={`#${link}`} onClick={(e) => { e.preventDefault(); scrollToSection(link); }} className="text-2xl sm:text-3xl font-display text-brand-light hover:text-brand-accent transition-colors duration-300 text-center">
+              <a 
+                key={link} 
+                href={`#${link}`} 
+                onClick={(e) => { e.preventDefault(); scrollToSection(link); }} 
+                className={`text-2xl sm:text-3xl font-display transition-colors duration-300 text-center ${
+                  activeSection === link 
+                    ? 'text-brand-accent' 
+                    : 'text-brand-light hover:text-brand-accent'
+                }`}
+              >
                 {t[link]}
               </a>
             ))}
