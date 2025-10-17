@@ -61,12 +61,12 @@ const About = React.forwardRef<HTMLElement, AboutProps>(({ t }, ref) => {
     return (
         <section id="about" ref={ref} className="py-20 md:py-32 bg-brand-dark text-brand-light relative overflow-hidden">
             <div className="container mx-auto px-6 relative z-10">
-                <div className="text-center mb-16 md:mb-24">
+                <div className="text-center mb-12 sm:mb-16 md:mb-24">
                     <AnimatedSection>
-                        <h2 className="text-4xl md:text-5xl font-display font-bold">{t.title}</h2>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold px-4 sm:px-0">{t.title}</h2>
                     </AnimatedSection>
                     <AnimatedSection delay={200}>
-                        <p className="mt-4 text-lg max-w-3xl mx-auto text-brand-light/70">
+                        <p className="mt-4 text-base sm:text-lg max-w-2xl sm:max-w-3xl mx-auto text-brand-light/70 px-4 sm:px-0 leading-relaxed">
                             {t.subtitle}
                         </p>
                     </AnimatedSection>
@@ -109,11 +109,11 @@ const About = React.forwardRef<HTMLElement, AboutProps>(({ t }, ref) => {
                     </div>
 
                     {/* Text Column */}
-                    <div className="flex flex-col justify-between text-center md:text-left min-h-[350px]">
+                    <div className="flex flex-col justify-between text-center md:text-left min-h-[350px] px-4 sm:px-0">
                         <div key={active} className="animate-fade-in" style={{ animationDuration: '0.9s' }}>
-                            <h3 className="text-3xl lg:text-4xl font-display font-bold text-brand-light">{t.teamMembers[active].name}</h3>
-                            <p className="text-md text-brand-light/90 font-semibold mt-1">{t.teamMembers[active].designation}</p>
-                            <blockquote className="mt-6 text-lg text-brand-light/70 leading-relaxed italic">
+                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-brand-light">{t.teamMembers[active].name}</h3>
+                            <p className="text-sm sm:text-md text-brand-light/90 font-semibold mt-1">{t.teamMembers[active].designation}</p>
+                            <blockquote className="mt-4 sm:mt-6 text-base sm:text-lg text-brand-light/70 leading-relaxed italic">
                                 "{t.teamMembers[active].quote}"
                             </blockquote>
                         </div>

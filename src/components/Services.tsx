@@ -57,25 +57,25 @@ const Services = React.forwardRef<HTMLElement, ServicesProps>(({ t }, ref) => {
         ></div>
         <div className="absolute inset-0 bg-brand-dark/90" aria-hidden="true"></div>
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center">
+        <div className="text-center mb-12 sm:mb-16">
             <AnimatedSection>
-                <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-light">{t.title}</h2>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-brand-light px-4 sm:px-0">{t.title}</h2>
             </AnimatedSection>
             <AnimatedSection delay={200}>
-                <p className="mt-4 text-lg max-w-3xl mx-auto text-brand-light/70">
+                <p className="mt-4 text-base sm:text-lg max-w-2xl sm:max-w-3xl mx-auto text-brand-light/70 px-4 sm:px-0 leading-relaxed">
                     {t.description}
                 </p>
             </AnimatedSection>
         </div>
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mt-8 sm:mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {servicesData.map((service, index) => (
                 <AnimatedSection key={index} delay={400 + index * 150}>
-                    <div className="bg-brand-dark/50 backdrop-blur-sm border border-brand-light/20 p-8 rounded-lg h-full transition-all duration-300 hover:border-brand-accent hover:shadow-2xl hover:shadow-brand-accent/10 transform hover:-translate-y-2">
-                        <div className="text-brand-accent w-12 h-12">
+                    <div className="bg-brand-dark/50 backdrop-blur-sm border border-brand-light/20 p-6 sm:p-8 rounded-lg h-full transition-all duration-300 hover:border-brand-accent hover:shadow-2xl hover:shadow-brand-accent/10 transform hover:-translate-y-2">
+                        <div className="text-brand-accent w-10 h-10 sm:w-12 sm:h-12">
                             <ServiceIcon iconName={service.icon} />
                         </div>
-                        <h3 className="mt-4 text-2xl font-display font-semibold text-brand-light">{service.title}</h3>
-                        <p className="mt-2 text-brand-light/60">{service.description}</p>
+                        <h3 className="mt-3 sm:mt-4 text-xl sm:text-2xl font-display font-semibold text-brand-light leading-tight">{service.title}</h3>
+                        <p className="mt-2 text-sm sm:text-base text-brand-light/60 leading-relaxed">{service.description}</p>
                     </div>
                 </AnimatedSection>
             ))}

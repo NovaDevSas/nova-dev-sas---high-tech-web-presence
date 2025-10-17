@@ -310,18 +310,18 @@ const Technologies = React.forwardRef<HTMLElement, TechnologiesProps>(({ t }, re
         ></div>
         <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/95 to-brand-dark"></div>
       <div className="container mx-auto px-6 relative">
-        <div className="text-center">
+        <div className="text-center mb-12 sm:mb-16">
             <AnimatedSection>
-                <h2 className="text-4xl md:text-5xl font-display font-bold">{t.title}</h2>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold px-4 sm:px-0">{t.title}</h2>
             </AnimatedSection>
             <AnimatedSection delay={150}>
-                <p className="mt-4 text-lg max-w-3xl mx-auto text-brand-light/70">
+                <p className="mt-4 text-base sm:text-lg max-w-2xl sm:max-w-3xl mx-auto text-brand-light/70 px-4 sm:px-0 leading-relaxed">
                     {t.description}
                 </p>
             </AnimatedSection>
         </div>
         
-        <AnimatedSection delay={300} className="mt-16">
+        <AnimatedSection delay={300} className="mt-8 sm:mt-12 md:mt-16">
             <TechCarousel
                 containerRef={containerRef}
                 trackRef={trackRef}

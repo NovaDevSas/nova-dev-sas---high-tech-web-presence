@@ -49,7 +49,7 @@ const Testimonials = React.forwardRef<HTMLElement, TestimonialsProps>(({ t }, re
             <div className="absolute inset-0 bg-brand-dark/95 backdrop-blur-sm" aria-hidden="true"></div>
             <div className="container mx-auto px-6 relative">
                 <AnimatedSection className="text-center">
-                    <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-light">{t.title}</h2>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-brand-light px-4 sm:px-0">{t.title}</h2>
                 </AnimatedSection>
                 <AnimatedSection className="mt-16 relative max-w-4xl mx-auto">
                     <div className="overflow-hidden relative h-64">

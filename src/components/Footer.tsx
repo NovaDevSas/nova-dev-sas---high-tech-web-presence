@@ -41,15 +41,15 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
     return (
         <footer className="bg-[#0A0A0A] text-brand-light/70 pt-16">
             <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-12 sm:mb-16">
                     {/* Column 1: Brand & Social */}
                     <div className="lg:col-span-1">
-                        <div className="text-2xl font-display font-bold text-brand-accent tracking-widest mb-4">
+                        <div className="text-xl sm:text-2xl font-display font-bold text-brand-accent tracking-widest mb-4">
                             NOVA DEV
                         </div>
-                        <p className="max-w-sm pr-4">{t.tagline}</p>
-                        <div className="mt-6">
-                            <h3 className="text-lg font-display font-bold text-brand-light mb-3">{t.socialTitle}</h3>
+                        <p className="max-w-sm pr-0 sm:pr-4 text-sm sm:text-base leading-relaxed">{t.tagline}</p>
+                        <div className="mt-4 sm:mt-6">
+                            <h3 className="text-base sm:text-lg font-display font-bold text-brand-light mb-3">{t.socialTitle}</h3>
                             <div className="flex space-x-5">
                                 <SocialIcon href="https://linkedin.com" aria-label="LinkedIn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
@@ -66,11 +66,11 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
 
                     {/* Column 2: Quick Links */}
                     <div>
-                        <h3 className="text-lg font-display font-bold text-brand-light mb-4">{t.quickLinksTitle}</h3>
-                        <ul className="space-y-3">
+                        <h3 className="text-base sm:text-lg font-display font-bold text-brand-light mb-3 sm:mb-4">{t.quickLinksTitle}</h3>
+                        <ul className="space-y-2 sm:space-y-3">
                             {Object.entries(t.links).map(([key, value]) => (
                                 <li key={key}>
-                                    <a href={`#${key}`} onClick={(e) => { e.preventDefault(); scrollToSection(key); }} className="hover:text-brand-accent transition-colors duration-300">{value}</a>
+                                    <a href={`#${key}`} onClick={(e) => { e.preventDefault(); scrollToSection(key); }} className="text-sm sm:text-base hover:text-brand-accent transition-colors duration-300">{value}</a>
                                 </li>
                             ))}
                         </ul>
@@ -78,23 +78,23 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
 
                     {/* Column 3: Contact */}
                     <div>
-                        <h3 className="text-lg font-display font-bold text-brand-light mb-4">{t.contactTitle}</h3>
-                        <ul className="space-y-3">
-                            <li><p>{t.contactInfo.address}</p></li>
-                            <li><a href={`mailto:${t.contactInfo.email}`} className="hover:text-brand-accent transition-colors duration-300">{t.contactInfo.email}</a></li>
-                            <li><a href={`tel:${t.contactInfo.phone.replace(/\s/g, '')}`} className="hover:text-brand-accent transition-colors duration-300">{t.contactInfo.phone}</a></li>
+                        <h3 className="text-base sm:text-lg font-display font-bold text-brand-light mb-3 sm:mb-4">{t.contactTitle}</h3>
+                        <ul className="space-y-2 sm:space-y-3">
+                            <li><p className="text-sm sm:text-base leading-relaxed">{t.contactInfo.address}</p></li>
+                            <li><a href={`mailto:${t.contactInfo.email}`} className="text-sm sm:text-base hover:text-brand-accent transition-colors duration-300 break-all">{t.contactInfo.email}</a></li>
+                            <li><a href={`tel:${t.contactInfo.phone.replace(/\s/g, '')}`} className="text-sm sm:text-base hover:text-brand-accent transition-colors duration-300">{t.contactInfo.phone}</a></li>
                         </ul>
                     </div>
                     
                     {/* Column 4: Newsletter */}
-                    <div>
-                        <h3 className="text-lg font-display font-bold text-brand-light mb-4">{t.newsletterTitle}</h3>
-                         <p className="mb-4">Recibe las últimas noticias y artículos directamente en tu bandeja de entrada.</p>
+                    <div className="sm:col-span-2 lg:col-span-1">
+                        <h3 className="text-base sm:text-lg font-display font-bold text-brand-light mb-3 sm:mb-4">{t.newsletterTitle}</h3>
+                         <p className="mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">Recibe las últimas noticias y artículos directamente en tu bandeja de entrada.</p>
                          <form onSubmit={(e) => e.preventDefault()}>
-                            <div className="flex">
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-0">
                                 <label htmlFor="footer-email" className="sr-only">{t.newsletterPlaceholder}</label>
-                                <input id="footer-email" type="email" placeholder={t.newsletterPlaceholder} className="w-full bg-[#1e1e1e] border border-brand-light/20 rounded-l-md px-4 py-2 text-brand-light focus:ring-brand-accent focus:border-brand-accent" />
-                                <button type="submit" className="bg-brand-accent text-white font-bold px-4 rounded-r-md hover:bg-brand-accent-dark transition-colors">{t.newsletterButton}</button>
+                                <input id="footer-email" type="email" placeholder={t.newsletterPlaceholder} className="flex-1 bg-[#1e1e1e] border border-brand-light/20 rounded-md sm:rounded-l-md sm:rounded-r-none px-3 sm:px-4 py-2 text-sm sm:text-base text-brand-light focus:ring-brand-accent focus:border-brand-accent" />
+                                <button type="submit" className="bg-brand-accent text-white font-bold px-3 sm:px-4 py-2 rounded-md sm:rounded-l-none sm:rounded-r-md hover:bg-brand-accent-dark transition-colors text-sm sm:text-base">{t.newsletterButton}</button>
                             </div>
                          </form>
                     </div>
@@ -105,15 +105,15 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
             {(() => {
               const [canvasRef, inView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1, triggerOnce: false });
               return (
-                <div ref={canvasRef} className="relative w-full h-64 md:h-80" role="application" aria-label="Interactive NOVA DEV logo">
+                <div ref={canvasRef} className="relative w-full h-48 sm:h-64 md:h-80" role="application" aria-label="Interactive NOVA DEV logo">
                   <Suspense fallback={null}>{inView && <PostFooter />}</Suspense>
                 </div>
               );
             })()}
 
             <div className="container mx-auto px-6">
-                <div className="border-t border-brand-light/10 py-8 text-center">
-                    <p className="text-sm">{copyrightText}</p>
+                <div className="border-t border-brand-light/10 py-6 sm:py-8 text-center">
+                    <p className="text-xs sm:text-sm px-4">{copyrightText}</p>
                 </div>
             </div>
         </footer>

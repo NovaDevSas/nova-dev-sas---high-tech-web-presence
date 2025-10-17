@@ -17,14 +17,13 @@ const FloatingWhatsApp = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className={`fixed bottom-6 right-6 z-[90] bg-[#25D366] text-white rounded-full p-3.5 shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-dark focus:ring-[#25D366] transition-all duration-300 ease-in-out transform animate-subtle-pulse ${
+      className={`fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-[90] bg-[#25D366] text-white rounded-full p-2.5 sm:p-3.5 shadow-lg hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-dark focus:ring-[#25D366] transition-all duration-300 ease-in-out transform animate-subtle-pulse ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
+        className="w-6 h-6 sm:w-8 sm:h-8"
         viewBox="0 0 24 24"
         fill="currentColor"
       >

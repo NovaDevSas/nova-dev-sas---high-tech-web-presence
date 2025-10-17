@@ -32,12 +32,12 @@ const Portfolio = React.forwardRef<HTMLElement, PortfolioProps>(({ t }, ref) => 
   return (
     <section id="portfolio" ref={ref} className="py-20 md:py-32 bg-brand-dark text-brand-light relative overflow-hidden">
       <div className="container mx-auto px-6 relative">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
             <AnimatedSection>
-                <h2 className="text-4xl md:text-5xl font-display font-bold">{t.title}</h2>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold px-4 sm:px-0">{t.title}</h2>
             </AnimatedSection>
             <AnimatedSection delay={200}>
-                <p className="mt-4 text-lg max-w-3xl mx-auto text-brand-light/70">
+                <p className="mt-4 text-base sm:text-lg max-w-2xl sm:max-w-3xl mx-auto text-brand-light/70 px-4 sm:px-0 leading-relaxed">
                     {t.description}
                 </p>
             </AnimatedSection>
@@ -47,7 +47,7 @@ const Portfolio = React.forwardRef<HTMLElement, PortfolioProps>(({ t }, ref) => 
             {(() => {
               const [gridRef, inView] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.2, triggerOnce: false });
               return (
-                <div ref={gridRef} className="relative h-[70vh] w-full">
+                <div ref={gridRef} className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] w-full">
                   {inView && <InfiniteMenu items={mappedItems} />}
                 </div>
               );

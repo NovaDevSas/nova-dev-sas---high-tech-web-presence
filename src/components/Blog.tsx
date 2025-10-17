@@ -49,7 +49,7 @@ const Blog = React.forwardRef<HTMLElement, BlogProps>(({ t, setSelectedPost }, r
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center">
             <AnimatedSection>
-                <h2 className="text-4xl md:text-5xl font-display font-bold">{t.title}</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold px-4 sm:px-0">{t.title}</h2>
             </AnimatedSection>
             <AnimatedSection delay={200}>
                 <p className="mt-4 text-lg max-w-3xl mx-auto text-brand-light/70">

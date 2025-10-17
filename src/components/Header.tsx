@@ -42,8 +42,8 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, language, se
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-brand-dark/90 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
-        <nav className="container mx-auto px-4 lg:px-6 py-4 flex justify-between items-center">
-          <div className="text-xl lg:text-2xl font-display font-bold text-brand-accent tracking-widest cursor-pointer" onClick={() => scrollToSection('hero')}>
+        <nav className="container mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 flex justify-between items-center">
+          <div className="text-lg sm:text-xl lg:text-2xl font-display font-bold text-brand-accent tracking-wide sm:tracking-widest cursor-pointer" onClick={() => scrollToSection('hero')}>
             NOVA DEV
           </div>
           <div className="hidden lg:flex space-x-6 xl:space-x-8 items-center">
@@ -117,13 +117,13 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, language, se
           <div className="h-20 flex-shrink-0"></div>
           
           {/* Scrollable content area */}
-          <div className="flex-1 flex flex-col items-center justify-start py-8 px-6 space-y-6 min-h-0">
+          <div className="flex-1 flex flex-col items-center justify-start py-6 sm:py-8 px-4 sm:px-6 space-y-4 sm:space-y-6 min-h-0">
             {navLinks.map(link => (
               <a 
                 key={link} 
                 href={`#${link}`} 
                 onClick={(e) => { e.preventDefault(); scrollToSection(link); }} 
-                className={`text-2xl sm:text-3xl font-display transition-colors duration-300 text-center ${
+                className={`text-xl sm:text-2xl md:text-3xl font-display transition-colors duration-300 text-center ${
                   activeSection === link 
                     ? 'text-brand-accent' 
                     : 'text-brand-light hover:text-brand-accent'
