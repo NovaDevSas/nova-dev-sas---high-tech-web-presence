@@ -289,7 +289,7 @@ User Interface (UI) Design, on the other hand, is the micro-level execution of t
         services: 'Servicios',
         technologies: 'Tecnologías',
         portfolio: 'Portafolio',
-        casestudies: 'Casos de Éxito',
+        casestudies: 'Proyectos Recientes',
         impact: 'Impacto',
         process: 'Proceso',
         blog: 'Blog',
@@ -398,31 +398,31 @@ User Interface (UI) Design, on the other hand, is the micro-level execution of t
         }
     },
     casestudies: {
-        title: 'Casos de Éxito',
-        description: 'Descubre cómo nos asociamos con clientes para superar desafíos y lograr resultados notables.',
-        readMore: 'Leer Caso de Estudio',
+        title: 'Proyectos Recientes',
+        description: 'Una selección de proyectos reales que estamos construyendo o hemos entregado. Sin exageraciones; enfoque en calidad, aprendizaje y evolución continua.',
+        readMore: 'Ver proyecto',
         case1: {
-            client: 'Transistor',
-            title: 'Aumento de la Conversión de E-commerce en un 25%',
-            description: 'Re-diseñamos su plataforma móvil, lo que llevó a un aumento significativo en la participación del usuario y las ventas.',
-            tags: ['React Native', 'E-commerce', 'Rediseño UX']
+            client: 'E-commerce Retail',
+            title: 'Optimización de experiencia de compra en móvil',
+            description: 'Mejoramos la navegación y el flujo de checkout en la app, reduciendo fricción y facilitando la compra desde dispositivos móviles.',
+            tags: ['React Native', 'E-commerce', 'Mejora UX']
         },
         case2: {
-            client: 'Reform',
-            title: 'Escalando Infraestructura en la Nube para un Gigante SaaS',
-            description: 'Nuestro equipo de DevOps implementó una solución en la nube robusta y escalable en AWS, garantizando un 99.99% de tiempo de actividad durante picos de carga.',
+            client: 'Startup SaaS',
+            title: 'Infraestructura en la nube preparada para crecer',
+            description: 'Definimos pipelines CI/CD, observabilidad y un esquema de autoescalado básico en AWS para acompañar el crecimiento sin interrupciones.',
             tags: ['AWS', 'DevOps', 'SaaS', 'Escalabilidad']
         },
         case3: {
-            client: 'SavvyCal',
-            title: 'Desarrollo de un Dashboard de Analítica en Tiempo Real',
-            description: 'Construimos un dashboard personalizado que proporciona información en tiempo real, potenciando la toma de decisiones basada en datos en toda la empresa.',
+            client: 'Empresa de Datos',
+            title: 'Dashboard de analítica para decisiones oportunas',
+            description: 'Implementamos un panel con métricas clave y actualizaciones frecuentes, habilitando decisiones con datos confiables y oportunos.',
             tags: ['React', 'Visualización de Datos', 'WebSockets']
         },
         seo: {
-            title: "Casos de Estudio | Historias de Éxito por Nova Dev SAS",
-            description: "Explora casos de estudio detallados de nuestro trabajo. Ve cómo hemos ayudado a empresas como la tuya a alcanzar sus objetivos tecnológicos.",
-            keywords: "casos de estudio, historias de éxito, proyectos de software, trabajo con clientes, portafolio"
+            title: "Proyectos Recientes | Trabajo Real de Nova Dev SAS",
+            description: "Explora proyectos reales y representativos. Conoce cómo abordamos desafíos y evolucionamos soluciones junto a nuestros clientes.",
+            keywords: "proyectos recientes, trabajo real, ejemplos de proyectos, software a la medida"
         }
     },
     impact: {
@@ -540,7 +540,7 @@ Por otro lado, el Diseño de Interfaz de Usuario (UI) es la ejecución a nivel m
             services: 'Servicios',
             technologies: 'Tecnologías',
             portfolio: 'Portafolio',
-            casestudies: 'Casos de Éxito',
+            casestudies: 'Proyectos Recientes',
             impact: 'Impacto',
             blog: 'Blog',
             contact: 'Contacto'

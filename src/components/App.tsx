@@ -14,7 +14,6 @@ import Services from './Services';
 const Technologies = lazy(() => import('./Technologies'));
 const Portfolio = lazy(() => import('./Portfolio'));
 const CaseStudies = lazy(() => import('./CaseStudies'));
-const Impact = lazy(() => import('./Impact'));
 const Process = lazy(() => import('./Process'));
 const Testimonials = lazy(() => import('./Testimonials'));
 const Blog = lazy(() => import('./Blog'));
@@ -29,7 +28,7 @@ interface MappedPost extends BlogPostType {
     imageUrl: string;
 }
 
-type SectionName = 'hero' | 'about' | 'services' | 'technologies' | 'portfolio' | 'casestudies' | 'impact' | 'process' | 'testimonials' | 'blog' | 'contact';
+type SectionName = 'hero' | 'about' | 'services' | 'technologies' | 'portfolio' | 'casestudies' | 'process' | 'testimonials' | 'blog' | 'contact';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,7 +47,6 @@ function App() {
     technologies: useRef<HTMLElement>(null),
     portfolio: useRef<HTMLElement>(null),
     casestudies: useRef<HTMLElement>(null),
-    impact: useRef<HTMLElement>(null),
     process: useRef<HTMLElement>(null),
     testimonials: useRef<HTMLElement>(null),
     blog: useRef<HTMLElement>(null),
@@ -215,9 +213,6 @@ function App() {
             </Suspense>
             <Suspense fallback={<LoadingSpinner />}>
               <CaseStudies ref={sectionRefs.casestudies} t={t.casestudies} />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <Impact ref={sectionRefs.impact} t={t.impact} />
             </Suspense>
             <Suspense fallback={<LoadingSpinner />}>
               <Process ref={sectionRefs.process} t={t.process} />

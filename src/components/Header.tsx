@@ -14,7 +14,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, language, setLanguage, t, activeSection }) => {
   const [scrolled, setScrolled] = useState(false);
-  const navLinks = ['about', 'services', 'technologies', 'portfolio', 'casestudies', 'impact', 'process', 'blog', 'contact'];
+  const navLinks = ['about', 'services', 'technologies', 'portfolio', 'casestudies', 'process', 'blog', 'contact'];
 
   useEffect(() => {
     const handleScroll = () => {

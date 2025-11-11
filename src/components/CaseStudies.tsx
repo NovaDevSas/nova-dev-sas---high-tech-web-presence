@@ -25,21 +25,21 @@ const CaseStudies = React.forwardRef<HTMLElement, CaseStudiesProps>(({ t }, ref)
     const caseStudiesData: CaseStudy[] = [
         {
             client: t.case1.client,
-            logoUrl: 'https://tailwindui.com/img/logos/158x48/transistor-logo-white.svg',
+            logoUrl: '/logos/nova.webp',
             title: t.case1.title,
             description: t.case1.description,
             tags: t.case1.tags,
         },
         {
             client: t.case2.client,
-            logoUrl: 'https://tailwindui.com/img/logos/158x48/reform-logo-white.svg',
+            logoUrl: '/logos/nova.webp',
             title: t.case2.title,
             description: t.case2.description,
             tags: t.case2.tags,
         },
         {
             client: t.case3.client,
-            logoUrl: 'https://tailwindui.com/img/logos/158x48/savvycal-logo-white.svg',
+            logoUrl: '/logos/nova.webp',
             title: t.case3.title,
             description: t.case3.description,
             tags: t.case3.tags,
@@ -68,7 +68,7 @@ const CaseStudies = React.forwardRef<HTMLElement, CaseStudiesProps>(({ t }, ref)
                                     <img
                                       className="h-10 opacity-70 group-hover:opacity-100 transition-opacity"
                                       src={study.logoUrl}
-                                      alt={`${study.client} logo`}
+                                      alt={`Nova Dev logo`}
                                       loading="lazy"
                                       decoding="async"
                                       width={158}
